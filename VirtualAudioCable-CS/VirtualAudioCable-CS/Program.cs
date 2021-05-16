@@ -21,18 +21,6 @@ namespace VirtualAudioCable_CS
     {
         static void Main(string[] args)
         {
-            //ConfigStore s1 = new ConfigStore("dwad", true);
-            //Configurator r = new Configurator(s1);
-            //r.Write();
-
-            //ConfigStore store = r.Read();
-
-            //Console.Write(store.DefaultPlaybackDevice);
-
-            //Console.ReadKey();
-
-            //run();
-
             if (args != null)
             {
                 if (args.Length == 0)
@@ -157,23 +145,6 @@ namespace VirtualAudioCable_CS
                     }
                 }
             }
-        }
-
-        static void run()
-        {
-            SetupManager s = new SetupManager();
-
-            Console.WriteLine(s.PrimaryDevice.PropertyStore[PropertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString());
-            Console.WriteLine(s.VirtualAudioCableDevice.PropertyStore[PropertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString());
-
-            Console.WriteLine(s.PrimaryDevice.GetID());
-
-            s.SetADAsLoopbackSource();
-            s.AssignVACAsLoopbackDevice();
-
-            Console.WriteLine("jop!");
-            
-            Console.ReadKey();
         }
     }
 }
