@@ -1,7 +1,0 @@
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\bin\Debug\VirtualAudioCable-CS.exe.config
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\bin\Debug\VirtualAudioCable-CS.exe
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\bin\Debug\VirtualAudioCable-CS.pdb
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.csprojAssemblyReference.cache
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.csproj.CoreCompileInputs.cache
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.exe
-C:\Users\alex\source\repos\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.pdb
