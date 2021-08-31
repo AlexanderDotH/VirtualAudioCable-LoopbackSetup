@@ -69,14 +69,16 @@ namespace VirtualAudioCable_CS.Configuration
             }
         }
 
-        public static bool isConfigurationPresent()
+        public static bool IsConfigurationPresent()
         {
             try
             {
                 RegistryKey key = Registry.CurrentUser.OpenSubKey(registryEntry);
 
-                return key.GetValue("DefaultPlaybackDevice") != null && 
-                       key.GetValue("DefaultLoopbackAvailable") != null;
+                return 
+                    key != null && 
+                    key.GetValue("DefaultPlaybackDevice") != null && 
+                    key.GetValue("DefaultLoopbackAvailable") != null;
             }
             catch (Exception e)
             {

@@ -33,109 +33,16 @@ namespace VirtualAudioCable_CS
                 if (args[0] != null)
                 {
                     SetupManager s = new SetupManager();
+                    PropertyKeyStore pKS = new PropertyKeyStore();
 
                     switch (args[0])
                     {
                         case "set":
-
-                            if (Configurator.isConfigurationPresent())
-                            {
-                                OutputWriter.Write("VirtualAudioCable is already configurated! Think about it!\n Do you want to continue? (Y/N)");
-
-                                string answer = Console.ReadLine();
-
-                                if (answer == null)
-                                    return;
-
-                                if (!(answer.Contains("Y") || answer.Contains("y")))
-                                {
-                                    return;
-                                }
-
-                                Console.Clear();
-                            }
-
-                            OutputWriter.Write("Setting VirtualAudioCable as default output devices", OutputType.Info);
-
-                            try
-                            {
-                                if (s.PrimaryDevice.PropertyStore.Contains(PropertyKeyStore.
-                                    DEVICE_INTERFACE_FRIENDLY_NAME))
-                                {
-                                    OutputWriter.Write(string.Format("Detected {0} as default audio output", 
-                                            s.PrimaryDevice.PropertyStore[PropertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString()), 
-                                        OutputType.Info);
-
-                                    if (s.VirtualAudioCableDevice.PropertyStore.Contains(PropertyKeyStore
-                                        .DEVICE_INTERFACE_FRIENDLY_NAME))
-                                    {
-                                        OutputWriter.Write(string.Format("Detected {0} as VirtualAudio input",
-                                                s.VirtualAudioCableDevice.PropertyStore[PropertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString()),
-                                            OutputType.Info);
-
-                                        OutputWriter.Write("Finalizing steps", OutputType.Info);
-
-                                        if (s.PrimaryDevice.PropertyStore.Contains(PropertyKeyStore
-                                            .SET_PRIMARY_AUDIO_LOOPBACK_DEVICES))
-                                        {
-                                            string primaryDevice = s.PrimaryDevice
-                                                .PropertyStore[PropertyKeyStore.SET_PRIMARY_AUDIO_LOOPBACK_DEVICES]
-                                                .Value.ToString();
-
-                                            bool primaryDeviceBool = Convert.ToBoolean(primaryDevice);
-
-                                            ConfigStore configStore = new ConfigStore(s.GetDefaultLoopBackDevice(), primaryDeviceBool);
-                                            Configurator configurator = new Configurator(configStore);
-                                            configurator.Write();
-
-                                            s.SetADAsLoopbackSource();
-                                            s.AssignVACAsLoopbackDevice();
-                                        }
-                                        else
-                                        {
-                                            throw new SetupErrorException();
-                                        }
-
-                                        OutputWriter.Write("Finish!", OutputType.Info);
-
-                                    }
-                                    else
-                                    {
-                                        throw new SetupErrorException();
-                                    }
-                                }
-                                else
-                                {
-                                    throw new SetupErrorException();
-                                }
-                            }
-                            catch (Exception e)
-                            {
-                                OutputWriter.Write(e.Message, OutputType.Error);
-                            }
-
+                            Set(s, pKS);
                             break;
 
                         case "reset":
-                            if (Configurator.isConfigurationPresent())
-                            {
-                                Configurator configurator = new Configurator();
-                                s.RevertToDefaultSettings(configurator.Read());
-
-                                if (configurator.RemoveConfiguration())
-                                {
-                                    OutputWriter.Write("Reverted everything back to normal", OutputType.Info);
-                                }
-                                else
-                                {
-                                    OutputWriter.Write("Reverted everything back to normal, but could not reset the Registry configuration", OutputType.Info);
-                                    OutputWriter.Write("It is located at \"HKEY_CURRENT_USER\\SOFTWARE\\VirtualAudioCable-CS\"", OutputType.Info);
-                                }
-                            }
-                            else
-                            {
-                                OutputWriter.Write("Could not find any configuration information", OutputType.Error);
-                            }
+                            Reset(s);
                             break;
 
                         default:
@@ -144,6 +51,108 @@ namespace VirtualAudioCable_CS
                             break;
                     }
                 }
+            }
+        }
+        
+        public static void Reset(SetupManager s)
+        {
+            if (Configurator.IsConfigurationPresent())
+            {
+                Configurator configurator = new Configurator();
+                s.RevertToDefaultSettings(configurator.Read());
+
+                if (configurator.RemoveConfiguration())
+                {
+                    OutputWriter.Write("Reverted everything back to normal", OutputType.Info);
+                }
+                else
+                {
+                    OutputWriter.Write("Reverted everything back to normal, but could not reset the Registry configuration", OutputType.Info);
+                    OutputWriter.Write("It is located at \"HKEY_CURRENT_USER\\SOFTWARE\\VirtualAudioCable-CS\"", OutputType.Info);
+                }
+            }
+            else
+            {
+                OutputWriter.Write("Could not find any configuration information", OutputType.Error);
+            }
+        }
+
+        public static void Set(SetupManager s, PropertyKeyStore pKS)
+        {
+            if (Configurator.IsConfigurationPresent())
+            {
+                OutputWriter.Write("VirtualAudioCable is already configurated! Think about it!\n Do you want to continue? (Y/N)");
+
+                string answer = Console.ReadLine();
+
+                if (answer == null)
+                    return;
+
+                if (!(answer.Contains("Y") || answer.Contains("y")))
+                {
+                    return;
+                }
+
+                Console.Clear();
+            }
+
+            OutputWriter.Write("Setting VirtualAudioCable as default output devices", OutputType.Info);
+
+            try
+            {
+                if (s.PrimaryDevice.PropertyStore.Contains(pKS.
+                    DEVICE_INTERFACE_FRIENDLY_NAME))
+                {
+                    OutputWriter.Write(string.Format("Detected {0} as default audio output",
+                            s.PrimaryDevice.PropertyStore[pKS.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString()),
+                        OutputType.Info);
+
+                    if (s.VirtualAudioCableDevice.PropertyStore.Contains(pKS
+                        .DEVICE_INTERFACE_FRIENDLY_NAME))
+                    {
+                        OutputWriter.Write(string.Format("Detected {0} as VirtualAudio input",
+                                s.VirtualAudioCableDevice.PropertyStore[pKS.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString()),
+                            OutputType.Info);
+
+                        OutputWriter.Write("Finalizing steps", OutputType.Info);
+
+                        if (s.PrimaryDevice.PropertyStore.Contains(pKS
+                            .SET_PRIMARY_AUDIO_LOOPBACK_DEVICES))
+                        {
+                            string primaryDevice = s.PrimaryDevice
+                                .PropertyStore[pKS.SET_PRIMARY_AUDIO_LOOPBACK_DEVICES]
+                                .Value.ToString();
+
+                            bool primaryDeviceBool = Convert.ToBoolean(primaryDevice);
+
+                            ConfigStore configStore = new ConfigStore(s.GetDefaultLoopBackDevice(), primaryDeviceBool);
+                            Configurator configurator = new Configurator(configStore);
+                            configurator.Write();
+
+                            s.SetADAsLoopbackSource();
+                            s.AssignVACAsLoopbackDevice();
+                        }
+                        else
+                        {
+                            throw new SetupErrorException();
+                        }
+
+                        OutputWriter.Write("Finish!", OutputType.Info);
+
+                    }
+                    else
+                    {
+                        throw new SetupErrorException();
+                    }
+                }
+                else
+                {
+                    throw new SetupErrorException();
+                }
+            }
+            catch (Exception e)
+            {
+                OutputWriter.Write(e.Message, OutputType.Error);
             }
         }
     }

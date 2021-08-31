@@ -17,9 +17,12 @@ namespace VirtualAudioCable_CS.Audio
     {
         private MMDevice _virtualAudioCableDevice;
         private MMDevice _audioDevice;
+        private PropertyKeyStore _propertyKeyStore;
 
         public SetupManager()
         {
+            this._propertyKeyStore = new PropertyKeyStore();
+
             FindVirtualAudioCable();
             FindPrimaryAudioDevice();
         }
@@ -39,9 +42,9 @@ namespace VirtualAudioCable_CS.Audio
                                         DataFlow.Render, 
                                         DeviceState.All))
             {
-                if (device.PropertyStore.Contains(PropertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME))
+                if (device.PropertyStore.Contains(_propertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME))
                 {
-                    string deviceName = device.PropertyStore[PropertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString();
+                    string deviceName = device.PropertyStore[_propertyKeyStore.DEVICE_INTERFACE_FRIENDLY_NAME].Value.ToString();
 
                     if (deviceName.Contains("VB-Audio"))
                     {
@@ -76,7 +79,7 @@ namespace VirtualAudioCable_CS.Audio
                     };
 
                     PropertyStore propertyStore = this._audioDevice.PropertyStore;
-                    propertyStore.SetValue(PropertyKeyStore.SET_PRIMARY_AUDIO_LOOPBACK_DEVICES, value);
+                    propertyStore.SetValue(_propertyKeyStore.SET_PRIMARY_AUDIO_LOOPBACK_DEVICES, value);
                     propertyStore.Commit();
                 }
             }
@@ -86,9 +89,9 @@ namespace VirtualAudioCable_CS.Audio
         {
             if (this._audioDevice != null)
             {
-                if (this._audioDevice.PropertyStore.Contains(PropertyKeyStore.AUDIO_LOOPBACK_DEVICES))
+                if (this._audioDevice.PropertyStore.Contains(_propertyKeyStore.AUDIO_LOOPBACK_DEVICES))
                 {
-                    string loopBackDevice = this._audioDevice.PropertyStore[PropertyKeyStore.AUDIO_LOOPBACK_DEVICES]
+                    string loopBackDevice = this._audioDevice.PropertyStore[_propertyKeyStore.AUDIO_LOOPBACK_DEVICES]
                         .Value.ToString();
 
                     if (loopBackDevice.Length == 0)
@@ -122,7 +125,7 @@ namespace VirtualAudioCable_CS.Audio
                     };
 
                     PropertyStore store = this._audioDevice.PropertyStore;
-                    store.SetValue(PropertyKeyStore.AUDIO_LOOPBACK_DEVICES, value);
+                    store.SetValue(_propertyKeyStore.AUDIO_LOOPBACK_DEVICES, value);
                     store.Commit();
                 }
 
@@ -135,7 +138,7 @@ namespace VirtualAudioCable_CS.Audio
                     };
 
                     PropertyStore propertyStore = this._audioDevice.PropertyStore;
-                    propertyStore.SetValue(PropertyKeyStore.SET_PRIMARY_AUDIO_LOOPBACK_DEVICES, value);
+                    propertyStore.SetValue(_propertyKeyStore.SET_PRIMARY_AUDIO_LOOPBACK_DEVICES, value);
                     propertyStore.Commit();
                 }
             }
@@ -155,7 +158,7 @@ namespace VirtualAudioCable_CS.Audio
                     };
 
                     PropertyStore store = this._audioDevice.PropertyStore;
-                    store.SetValue(PropertyKeyStore.AUDIO_LOOPBACK_DEVICES, value);
+                    store.SetValue(_propertyKeyStore.AUDIO_LOOPBACK_DEVICES, value);
                     store.Commit();
                 }
                 else
