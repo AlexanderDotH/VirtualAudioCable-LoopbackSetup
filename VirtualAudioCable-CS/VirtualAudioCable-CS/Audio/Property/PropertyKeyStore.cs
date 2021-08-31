@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,9 @@ namespace VirtualAudioCable_CS.Audio.Property
     {
         public PropertyKeyStore()
         {
-            if (Windows.GetWindowsDisplayVersion().Equals("21H1"))
+            string version = Windows.GetWindowsDisplayVersion();
+
+            if (version.Equals("21H1") || version.Equals("21H2"))
             {
                 DEVICE_INTERFACE_FRIENDLY_NAME = new PropertyKey(new Guid("b3f8fa53-0004-438e-9003-51a46e139bfc"), 6);
             }
