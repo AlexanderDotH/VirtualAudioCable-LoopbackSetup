@@ -1,0 +1,7 @@
+C:\Users\alexander.heuschkel\Source\Repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\bin\Debug\VirtualAudioCable-CS.exe.config
+C:\Users\alexander.heuschkel\Source\Repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\bin\Debug\VirtualAudioCable-CS.exe
+C:\Users\alexander.heuschkel\Source\Repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\bin\Debug\VirtualAudioCable-CS.pdb
+C:\Users\alexander.heuschkel\Source\Repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.csproj.CoreCompileInputs.cache
+C:\Users\alexander.heuschkel\Source\Repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.exe
+C:\Users\alexander.heuschkel\Source\Repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.pdb
+C:\Users\alexander.heuschkel\source\repos\VirtualAudioCable-LoopbackSetup\VirtualAudioCable-CS\VirtualAudioCable-CS\obj\Debug\VirtualAudioCable-CS.csproj.AssemblyReference.cache

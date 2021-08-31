@@ -96,6 +96,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Output\OutputType.cs" />
     <Compile Include="Utils\Output\OutputWriter.cs" />
+    <Compile Include="Utils\Version\Windows.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
